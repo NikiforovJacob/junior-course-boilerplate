@@ -1,10 +1,20 @@
 import React from "react";
 import ProductCard from "csssr-school-product-card";
 
+import "./ProductsItems.css";
+
 const ProductsItems = props => {
 
   const ratingComponent = ({ isFilled }) => {
-    return <div className={isFilled && "starFill"} />;
+    return (  
+      <img
+        className="rating"
+        src={isFilled ? "images/ratingStarFill.png" : "images/ratingStarEmpty.png"}
+        alt="placeholder"
+        width="13"
+        height="13"
+      />
+    );
   };
 
   const productsItems = props.data
@@ -19,22 +29,12 @@ const ProductsItems = props => {
         maxRating={maxRating}
         rating={rating}
         ratingComponent={ratingComponent}
-      />)
+      />
+      )
     );
 
-  const styles = {
-    width: '700px',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    paddingLeft: 0
-
-  }
-
   return (
-    <ul style={styles}>
+    <ul className="items">
       {productsItems}
     </ul>
   );
