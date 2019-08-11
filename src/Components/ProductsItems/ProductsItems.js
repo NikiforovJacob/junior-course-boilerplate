@@ -1,5 +1,7 @@
 import React from "react";
 import ProductCard from "csssr-school-product-card";
+import starFill from "./images/ratingStarFill.png"
+import starEmpty from "./images/ratingStarEmpty.png"
 
 import "./ProductsItems.css";
 
@@ -9,7 +11,7 @@ const ProductsItems = props => {
     return (  
       <img
         className="rating"
-        src={isFilled ? "images/ratingStarFill.png" : "images/ratingStarEmpty.png"}
+        src={isFilled ? starFill : starEmpty}
         alt="placeholder"
         width="13"
         height="13"
