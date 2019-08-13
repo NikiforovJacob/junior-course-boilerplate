@@ -4,7 +4,7 @@
     "title": "Имя товара",
     "isInStock": true,
     "imgProduct": "images/1_Rectangle.png",
-    "price": 4000,
+    "price": 400,
     "subPriceContent": 5000,
     "maxRating": 5,
     "rating": 3.5

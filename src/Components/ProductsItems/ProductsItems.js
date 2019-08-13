@@ -19,7 +19,7 @@ const ProductsItems = props => {
     );
   };
 
-  const productsItems = props.data
+  const productsItems = props.dataItems
     .map(({ id, title, isInStock, imgProduct, price, subPriceContent, maxRating, rating }) => (
       <ProductCard 
         key={id}
