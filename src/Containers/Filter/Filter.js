@@ -3,48 +3,59 @@ import React from 'react';
 import './Filter.css';
 
 class Filter extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.inputPriceFrom = React.createRef();
+    this.inputPriceTo = React.createRef();
 
-  render() {
-    const { data, state, handleChangeInputText, handleChangeState } = this.props;
+    this.filterDefaultValueTo = this.props.data.reduce(
+      (maxPrice, item) => maxPrice > item.price ? maxPrice : item.price
+    , 0)
+      
+    this.filterDelaultValueFrom = this.props.data.reduce(
+      (minPrice, item) => minPrice < item.price ? minPrice : item.price
+    , undefined);
+  }
+  
+  handleSetFilter = () => {
+    const { data, handleChangeState } = this.props;
+    const  inputPriceFrom = this.inputPriceFrom.current.value;
+    const  inputPriceTo = this.inputPriceTo.current.value;
 
-    const handleSetFilter = () => {
-      const { filterValueFrom, filterValueTo } = state;
-
-      const isFilterValuesValid = (filterValueFrom >= 0 && filterValueTo >= 0) && (filterValueFrom !== '' && filterValueTo !== '');
-      if (!isFilterValuesValid) {
-        alert('Значения фильтра должны быть 0 или положительным числом');
-        return;
-      }
-
-      const filteredData = data.filter(
-        item => item.price >= filterValueFrom && item.price <= filterValueTo
-      );
-      handleChangeState('productsList', filteredData);
+    const isFilterValuesValid = (inputPriceFrom >= 0 && inputPriceTo >= 0) && (inputPriceFrom !== '' && inputPriceTo !== '');
+    if (!isFilterValuesValid) {
+      alert('Значения цены в фильтре должны быть 0 или положительным числом');
+      return;
     }
 
+    const filteredData = data.filter(
+      item => item.price >= inputPriceFrom && item.price <= inputPriceTo
+    );
+    handleChangeState({ productsList: filteredData });
+  }
+
+  render() {
     return (
       <div className='filter'>
         <h1 className='filterTitle'>Цена</h1>
         <div>
           <label className='label'>от
             <input
-              type='text'
               className='fields'
-              data-name-of-input='filterValueFrom' 
-              onChange={handleChangeInputText} 
-              value={state.filterValueFrom} 
+              ref={this.inputPriceFrom}
+              defaultValue={this.filterDelaultValueFrom}
             />
           </label>
           <label className='label'> до
             <input 
               className='fields'
-              data-name-of-input='filterValueTo'
-              onChange={handleChangeInputText} 
-              value={state.filterValueTo} 
+              ref={this.inputPriceTo}
+              defaultValue={this.filterDefaultValueTo}
             />
           </label>
         </div>
-        <button className='buttom' onClick={handleSetFilter}>Применить</button>
+        <button className='buttom' onClick={this.handleSetFilter}>Применить</button>
       </div>
     )
   }

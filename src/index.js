@@ -10,38 +10,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.filterValueTo = productsList.reduce(
-      (maxPrice, item) => maxPrice > item.price ? maxPrice : item.price
-    , 0)
-      
-    this.filterValueFrom = productsList.reduce(
-      (minPrice, item) => minPrice < item.price ? minPrice : item.price
-    , this.filterValueTo);
-
     this.state = {
       productsList: productsList,
-      filterValueFrom: this.filterValueFrom,
-      filterValueTo: this.filterValueTo
     }
   }
 
-  handleChangeState = (nameOfState, value) => {
-    this.setState({ [nameOfState]: value });
+  handleChangeState = (newState) => {
+    this.setState(newState);
   }
-
-  handleChangeInputText = () => (e) => {
-    e.preventDefault();
-    const inputName = e.target.dataset.nameOfInput;
-    this.setState({ [inputName]: e.target.value });
-  };
 
   render() {
     return (
       <div className='page'>
         <Filter 
           data={productsList}
-          state={this.state}
-          handleChangeInputText={this.handleChangeInputText()}
           handleChangeState={this.handleChangeState}
         />
         <div className='goods'>
