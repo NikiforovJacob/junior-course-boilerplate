@@ -29,7 +29,7 @@ class App extends React.Component {
         <div className='goods'>
           <Title title='Список товаров' />
           <ProductsItems dataItems={this.state.productsList} />
-          <LogRender componentName='App' />
+          <LogRender parentContext={this} />
         </div>
       </div>
     );

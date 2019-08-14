@@ -1,4 +1,5 @@
 import React from 'react';
+import LogRender from '../../Components/logRender/logRender';
 
 import './Filter.css';
 
@@ -16,15 +17,18 @@ class Filter extends React.Component {
     this.filterDelaultValueFrom = this.props.data.reduce(
       (minPrice, item) => minPrice < item.price ? minPrice : item.price
     , undefined);
+
+    this.isFilterValuesValid = (value) => {
+      return RegExp('^(0|[1-9][0-9]*)$').test(value);
+    }
   }
-  
+
   handleSetFilter = () => {
     const { data, handleChangeState } = this.props;
     const  inputPriceFrom = this.inputPriceFrom.current.value;
     const  inputPriceTo = this.inputPriceTo.current.value;
 
-    const isFilterValuesValid = (inputPriceFrom >= 0 && inputPriceTo >= 0) && (inputPriceFrom !== '' && inputPriceTo !== '');
-    if (!isFilterValuesValid) {
+    if (!(this.isFilterValuesValid(inputPriceFrom)) || !(this.isFilterValuesValid(inputPriceTo))) {
       alert('Значения цены в фильтре должны быть 0 или положительным числом');
       return;
     }
@@ -38,16 +42,18 @@ class Filter extends React.Component {
   render() {
     return (
       <div className='filter'>
-        <h1 className='filterTitle'>Цена</h1>
+        <div className='filterTitle'>Цена</div>
         <div>
-          <label className='label'>от
+          <label className='label'>
+            от
             <input
               className='fields'
               ref={this.inputPriceFrom}
               defaultValue={this.filterDelaultValueFrom}
             />
           </label>
-          <label className='label'> до
+          <label className='label'>
+            до
             <input 
               className='fields'
               ref={this.inputPriceTo}
@@ -55,7 +61,8 @@ class Filter extends React.Component {
             />
           </label>
         </div>
-        <button className='buttom' onClick={this.handleSetFilter}>Применить</button>
+        <button className='button' onClick={this.handleSetFilter}>Применить</button>
+        <LogRender parentContext={this} />
       </div>
     )
   }

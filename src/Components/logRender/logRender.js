@@ -1,12 +1,18 @@
 import React from "react";
+import { logger } from "csssr-school-utils";
 
-const logRender = ({ componentName }) => {
+class logRender extends React.Component {
 
-  console.log('Component', componentName, 'rerendered');
-  
-  return (
-    <div></div>    
-  );
+  shouldComponentUpdate(nextProps, nextState) {
+    logger.call(this.props.parentContext, this.props.parentContext.constructor.name, nextProps, nextState);
+    return true
+  }
+
+  render() {
+    return (
+      <div></div>
+    );
+  }
 }
 
 export default logRender;
