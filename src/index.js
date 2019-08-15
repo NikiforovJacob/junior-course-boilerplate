@@ -10,18 +10,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.defaultFilterValueTo = productsList.reduce(
+    this.defaultFilterPriceTo = productsList.reduce(
       (maxPrice, item) => maxPrice > item.price ? maxPrice : item.price
     , 0)
 
-    this.defaultFilterValueFrom = productsList.reduce(
+    this.defaultFilterPriceFrom = productsList.reduce(
       (minPrice, item) => minPrice < item.price ? minPrice : item.price
-    , this.filterValueTo);
+    , this.filterPriceTo);
 
     this.state = {
       productsList: productsList,
-      filterValueFrom: this.defaultFilterValueFrom,
-      filterValueTo: this.defaultFilterValueTo,
+      filterPriceFrom: this.defaultFilterPriceFrom,
+      filterPriceTo: this.defaultFilterPriceTo,
     }
   }
 
@@ -31,15 +31,15 @@ class App extends React.Component {
   };
 
   handleSetFilter = (isInputValueValid) => () => {
-    const { filterValueFrom, filterValueTo } = this.state;
+    const { filterPriceFrom, filterPriceTo } = this.state;
 
-    if (!(isInputValueValid(filterValueFrom)) || !(isInputValueValid(filterValueTo))) {
+    if (!(isInputValueValid(filterPriceFrom)) || !(isInputValueValid(filterPriceTo))) {
       alert('Значения цены в фильтре должны быть 0 или положительным числом');
       return;
     }
 
     const filteredData = productsList.filter(
-      item => item.price >= filterValueFrom && item.price <= filterValueTo
+      item => item.price >= filterPriceFrom && item.price <= filterPriceTo
     );
     this.setState({ productsList: filteredData });
   }
@@ -50,8 +50,8 @@ class App extends React.Component {
         <Filter 
           handleChangeInputText={this.handleChangeInputText}
           handleSetFilter={this.handleSetFilter}
-          filterValueFrom={this.state.filterValueFrom}
-          filterValueTo={this.state.filterValueTo}
+          filterPriceFrom={this.state.filterPriceFrom}
+          filterPriceTo={this.state.filterPriceTo}
         />
         <div className='goods'>
           <Title title='Список товаров' />

@@ -7,8 +7,8 @@ const Filter = (props) => {
   const { 
     handleChangeInputText, 
     handleSetFilter,
-    filterValueFrom,
-    filterValueTo
+    filterPriceFrom,
+    filterPriceTo
   } = props;
 
   const isInputValueValid = (value) => RegExp('^(0|[1-9][0-9]*)$').test(value);
@@ -22,8 +22,8 @@ const Filter = (props) => {
           <input
             className='fields'
             onChange={handleChangeInputText}
-            value={filterValueFrom}
-            data-name-of-input='filterValueFrom'
+            value={filterPriceFrom}
+            data-name-of-input='filterPriceFrom'
           />
         </label>
         <label className='label'>
@@ -31,8 +31,8 @@ const Filter = (props) => {
           <input 
             className='fields'
             onChange={handleChangeInputText}
-            value={filterValueTo}
-            data-name-of-input='filterValueTo' 
+            value={filterPriceTo}
+            data-name-of-input='filterPriceTo' 
           />
         </label>
       </div>
