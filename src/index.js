@@ -20,26 +20,19 @@ class App extends React.Component {
 
     this.state = {
       productsList: productsList,
-      filterPriceFrom: this.defaultFilterPriceFrom,
-      filterPriceTo: this.defaultFilterPriceTo,
     }
   }
 
-  handleChangeInputText = (e) => {
-    const inputName = e.target.dataset.nameOfInput;
-    this.setState({ [inputName]: e.target.value });
-  };
-
-  handleSetFilter = (isInputValueValid) => () => {
-    const { filterPriceFrom, filterPriceTo } = this.state;
-
-    if (!(isInputValueValid(filterPriceFrom)) || !(isInputValueValid(filterPriceTo))) {
+  handleSetFilter = (isInputValueValid, filterPriceFrom, filterPriceTo) => () => {
+    const priceFrom = filterPriceFrom.current.value;
+    const priceTo = filterPriceTo.current.value;
+    if (!(isInputValueValid(priceFrom)) || !(isInputValueValid(priceTo))) {
       alert('Значения цены в фильтре должны быть 0 или положительным числом');
       return;
     }
 
     const filteredData = productsList.filter(
-      item => item.price >= filterPriceFrom && item.price <= filterPriceTo
+      item => item.price >= priceFrom && item.price <= priceTo
     );
     this.setState({ productsList: filteredData });
   }
@@ -48,10 +41,9 @@ class App extends React.Component {
     return (
       <div className='page'>
         <Filter 
-          handleChangeInputText={this.handleChangeInputText}
           handleSetFilter={this.handleSetFilter}
-          filterPriceFrom={this.state.filterPriceFrom}
-          filterPriceTo={this.state.filterPriceTo}
+          defaultFilterPriceFrom={this.defaultFilterPriceFrom}
+          defaultFilterPriceTo={this.defaultFilterPriceTo}
         />
         <div className='goods'>
           <Title title='Список товаров' />
