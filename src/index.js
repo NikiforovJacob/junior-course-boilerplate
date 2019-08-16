@@ -23,16 +23,17 @@ class App extends React.Component {
     }
   }
 
-  handleSetFilter = (isInputValueValid, filterPriceFrom, filterPriceTo) => () => {
-    const priceFrom = filterPriceFrom.current.value;
-    const priceTo = filterPriceTo.current.value;
-    if (!(isInputValueValid(priceFrom)) || !(isInputValueValid(priceTo))) {
+  handleSetFilter = (isValid, getFilterPriceFrom, getFilterPriceTo) => () => {
+    const filterPriceFrom = getFilterPriceFrom();
+    const filterPriceTo = getFilterPriceTo();
+    
+    if (!isValid()) {
       alert('Значения цены в фильтре должны быть 0 или положительным числом');
       return;
     }
 
     const filteredData = productsList.filter(
-      item => item.price >= priceFrom && item.price <= priceTo
+      item => item.price >= filterPriceFrom && item.price <= filterPriceTo
     );
     this.setState({ productsList: filteredData });
   }

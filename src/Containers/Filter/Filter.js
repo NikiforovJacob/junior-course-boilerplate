@@ -6,15 +6,18 @@ class Filter extends React.Component {
   constructor(props) {
     super(props);
 
-    this.isInputValueValid = (value) => RegExp('^(0|[1-9][0-9]*)$').test(value);
     this.filterPriceFrom = React.createRef();
     this.filterPriceTo = React.createRef();
+    this.isInputValueValid = (value) => RegExp('^(0|[1-9][0-9]*)$').test(value.current.value);
+    this.isValid = () => 
+      (this.isInputValueValid(this.filterPriceFrom)) && (this.isInputValueValid(this.filterPriceTo))
+    ;
   }
   
   render() {
     const { 
-      handleSetFilter, 
-      defaultFilterPriceFrom, 
+      handleSetFilter,
+      defaultFilterPriceFrom,
       defaultFilterPriceTo 
     } = this.props;
 
@@ -43,7 +46,13 @@ class Filter extends React.Component {
         </div>
         <button 
           className='button' 
-          onClick={handleSetFilter(this.isInputValueValid, this.filterPriceFrom, this.filterPriceTo)}
+          onClick={
+            handleSetFilter(
+              this.isValid, 
+              () => this.filterPriceFrom.current.value, 
+              () => this.filterPriceTo.current.value
+            )
+          }
         >
           Применить
         </button>
