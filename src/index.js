@@ -23,11 +23,8 @@ class App extends React.Component {
     }
   }
 
-  handleSetFilter = (isValid, getFilterPriceFrom, getFilterPriceTo) => () => {
-    const filterPriceFrom = getFilterPriceFrom();
-    const filterPriceTo = getFilterPriceTo();
-    
-    if (!isValid()) {
+  handleSetFilter = (isValid, filterPriceFrom, filterPriceTo) => () => {
+    if (!isValid) {
       alert('Значения цены в фильтре должны быть 0 или положительным числом');
       return;
     }
