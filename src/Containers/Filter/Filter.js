@@ -9,15 +9,11 @@ class Filter extends React.Component {
     this.filterPriceFrom = React.createRef();
     this.filterPriceTo = React.createRef();
     this.isInputValueValid = (value) => RegExp('^(0|[1-9][0-9]*)$').test(value.current.value);
-    this.isValid = () => 
-      (this.isInputValueValid(this.filterPriceFrom)) && (this.isInputValueValid(this.filterPriceTo));
-    ;
+    this.isValid = () => (this.isInputValueValid(this.filterPriceFrom)) && (this.isInputValueValid(this.filterPriceTo));
   }
   
   handleSetFilter = () => {
-    const filterPriceFrom = () => this.filterPriceFrom.current.value;
-    const filterPriceTo = () => this.filterPriceTo.current.value;
-    this.props.handleSetFilter(this.isValid(), filterPriceFrom(), filterPriceTo())();
+    this.props.handleSetFilter(this.isValid(), this.filterPriceFrom.current.value, this.filterPriceTo.current.value)();
   }
 
   render() {
