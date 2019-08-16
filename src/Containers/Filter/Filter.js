@@ -9,7 +9,8 @@ class Filter extends React.Component {
     this.filterPriceFrom = React.createRef();
     this.filterPriceTo = React.createRef();
     this.isInputValueValid = (value) => RegExp('^(0|[1-9][0-9]*)$').test(value.current.value);
-    this.isValid = () => (this.isInputValueValid(this.filterPriceFrom)) && (this.isInputValueValid(this.filterPriceTo));
+    this.isValid = () => 
+      (this.isInputValueValid(this.filterPriceFrom)) && (this.isInputValueValid(this.filterPriceTo));
     ;
   }
   
@@ -20,11 +21,6 @@ class Filter extends React.Component {
   }
 
   render() {
-    const { 
-      defaultFilterPriceFrom,
-      defaultFilterPriceTo 
-    } = this.props;
-
     return (
       <div className='filter'>
         <div className='filterTitle'>Цена</div>
@@ -34,7 +30,7 @@ class Filter extends React.Component {
             <input
               className='fields'
               ref={this.filterPriceFrom}
-              defaultValue={defaultFilterPriceFrom}
+              defaultValue={this.props.defaultFilterPriceFrom}
               data-name-of-input='filterPriceFrom'
             />
           </label>
@@ -43,7 +39,7 @@ class Filter extends React.Component {
             <input 
               className='fields'
               ref={this.filterPriceTo}
-              defaultValue={defaultFilterPriceTo}
+              defaultValue={this.props.defaultFilterPriceTo}
               data-name-of-input='filterPriceTo' 
             />
           </label>
