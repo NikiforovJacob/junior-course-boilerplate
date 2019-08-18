@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import productsList from './data/products.json';
 import Title from './Components/Title/Title';
 import ProductsItems from './Components/ProductsItems/ProductsItems';
-import Filter from './Containers/Filter/Filter';
+import Filter from './Components/Filter/Filter';
 import LogRender from './Components/logRender/logRender';
 
 class App extends React.Component {
@@ -20,28 +20,35 @@ class App extends React.Component {
 
     this.state = {
       productsList: productsList,
+      filterPriceFrom: this.defaultFilterPriceFrom,
+      filterPriceTo: this.defaultFilterPriceTo,
+      filterSale: ''
     }
   }
 
-  handleSetFilter = (isValid, filterPriceFrom, filterPriceTo) => () => {
-    if (!isValid) {
-      alert('Значения цены в фильтре должны быть 0 или положительным числом');
-      return;
-    }
-
+  setFilter = () => {
     const filteredData = productsList.filter(
-      item => item.price >= filterPriceFrom && item.price <= filterPriceTo
+      item => ((item.price >= this.state.filterPriceFrom) || (this.state.filterPriceFrom === '')) && 
+      ((item.price <= this.state.filterPriceTo) || (this.state.filterPriceTo === '')) && 
+      ((100 - item.price / item.subPriceContent * 100) >= this.state.filterSale)
     );
     this.setState({ productsList: filteredData });
   }
+  
+  changeInputValue = (e) => {
+    this.setState({ [e.target.name]: e.target.value }, this.setFilter); //или поменять state напрямую. Пока не вижу другого выхода, если отдаю в setState стрелочную ф-ию, теряется event
+  };
 
   render() {
+    const { filterPriceFrom, filterPriceTo, filterSale } = this.state;
+
     return (
       <div className='page'>
-        <Filter 
-          handleSetFilter={this.handleSetFilter}
-          defaultFilterPriceFrom={this.defaultFilterPriceFrom}
-          defaultFilterPriceTo={this.defaultFilterPriceTo}
+        <Filter
+          changeInputValue={this.changeInputValue}
+          filterPriceFrom={filterPriceFrom}
+          filterPriceTo={filterPriceTo}
+          filterSaleValue={filterSale}
         />
         <div className='goods'>
           <Title title='Список товаров' />

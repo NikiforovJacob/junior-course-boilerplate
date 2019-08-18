@@ -1,0 +1,13 @@
+.filterPrice {
+  width: 256px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filterTitle {
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  margin-top: 0px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
