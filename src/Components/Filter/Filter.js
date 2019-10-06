@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import InputControlled from "../InputControlled/InputControlled"
 import Discount from 'csssr-school-input-discount'
 import withValidation from '../../hocs/withValidation/withValidation'
@@ -10,10 +10,9 @@ const InputSaleWithValidation = withValidation(Discount);
 
 const Filter = (props) => {
   const { 
-    changeInputValue, 
-    filterPriceFrom,
-    filterPriceTo,
-    filterSaleValue
+    setFilter,
+    defaultFilterPriceFrom,
+    defaultFilterPriceTo
   } = props;
 
   return (
@@ -23,27 +22,27 @@ const Filter = (props) => {
         <InputPriceWithValidation
           prefix='от  '
           key='filterPriceFrom'
-          changeInputValue={changeInputValue}
-          value={filterPriceFrom}
+          value={defaultFilterPriceFrom}
           name='filterPriceFrom'
+          setFilter={setFilter}
         />
         <InputPriceWithValidation
           prefix='до  '
           key='filterPriceTo'
-          changeInputValue={changeInputValue}
-          value={filterPriceTo}
+          value={defaultFilterPriceTo}
           name='filterPriceTo' 
+          setFilter={setFilter}
         />
         <InputSaleWithValidation
           key='filterSale'
-          title="Скидка"
+          value={''}
           name="filterSale"
-          value={filterSaleValue}
-          changeInputValue={changeInputValue}
+          setFilter={setFilter}
+          title="Скидка"
         />
       </div>
     </div>
   )
 }
 
-export default Filter;
+export default memo(Filter);

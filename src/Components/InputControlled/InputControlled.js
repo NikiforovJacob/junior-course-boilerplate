@@ -2,26 +2,28 @@ import React from 'react';
 
 import './InputControlled.css';
 
-const InputControlled = (props) => {
+class InputControlled extends React.PureComponent {
 
-  const { 
-    prefix,
-    name,
-    onChange,
-    value
-  } = props;
+  render() {
+    const { 
+      prefix,
+      name,
+      onChange,
+      value
+    } = this.props;
 
-  return (
-    <label className='label'>
-      {prefix}
-      <input
-        name={name}
-        onChange={onChange}
-        value={value}
-        className='inputControlled'
-      />
-    </label>
-  )
+    return (
+      <label className='label'>
+        {prefix}
+        <input
+          name={name}
+          onChange={onChange}
+          value={value}
+          className='inputControlled'
+        />
+      </label>
+    )
+  }
 }
 
 export default InputControlled;
